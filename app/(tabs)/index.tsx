@@ -7,9 +7,15 @@ import {
   StyleSheet,
   Text,
   View,
+  type ImageSourcePropType,
 } from "react-native";
  
-type Filme = { id: string; titulo: string; cor: string };
+type Filme = {
+  id: string;
+  titulo: string;
+  cor: string;
+  imagem?: ImageSourcePropType;
+};
 type Categoria = { id: string; titulo: string; filmes: Filme[] };
  
 const categorias: Categoria[] = [
@@ -17,7 +23,12 @@ const categorias: Categoria[] = [
     id: "1",
     titulo: "Títulos",
     filmes: [
-      { id: "1a", titulo: "1 Copa do Brasil", cor: "#fbff00" },
+      {
+        id: "1a",
+        titulo: "1 Copa do Brasil",
+        cor: "#fbff00",
+        imagem: require("../../CopaDoBrasil.jfif"),
+      },
       { id: "1b", titulo: "1 Série B", cor: "#fbff00" },
       { id: "1c", titulo: "1 Série C", cor: "#fbff00" },
       { id: "1d", titulo: "12 Campeonatos Catarinense", cor: "#fbff00" },
@@ -26,88 +37,68 @@ const categorias: Categoria[] = [
   },
   {
     id: "2",
-    titulo: "Ação",
+    titulo: "Próximos Jogos",
     filmes: [
-      { id: "2a", titulo: "John Wick 4", cor: "#fbff00" },
-      { id: "2b", titulo: "Missão Impossível", cor: "#fbff00" },
-      { id: "2c", titulo: "Top Gun", cor: "#fbff00" },
-      { id: "2d", titulo: "Mad Max", cor: "#fbff00" },
+      { id: "2a", titulo: "Criciúma x Fortaleza", cor: "#fbff00" },
+      { id: "2b", titulo: "CRB X Criciúma", cor: "#fbff00" },
+      { id: "2c", titulo: "Criciúma x Cuiabá", cor: "#fbff00" },
+      { id: "2d", titulo: "Criciúma x Juventude", cor: "#fbff00" },
+      { id: "2e", titulo: "Criciúma x Operário", cor: "#fbff00" },
     ],
   },
   {
     id: "3",
-    titulo: "Comédia",
+    titulo: "Idolos",
     filmes: [
-      { id: "3a", titulo: "Superbad", cor: "#fbff00" },
-      { id: "3b", titulo: "The Grand Budapest", cor: "#fbff00" },
-      { id: "3c", titulo: "Knives Out", cor: "#fbff00" },
+      { id: "3a", titulo: "Jairo Lenzi", cor: "#fbff00" },
+      { id: "3b", titulo: "Grizzo", cor: "#fbff00" },
+      { id: "3c", titulo: "Itá", cor: "#fbff00" },
     ],
   },
   {
     id: "4",
-    titulo: "Documentários",
+    titulo: "Jogadores atuais",
     filmes: [
-      { id: "4a", titulo: "Free Solo", cor: "#fbff00" },
-      { id: "4b", titulo: "The Social Dilemma", cor: "#fbff00" },
-      { id: "4c", titulo: "My Octopus Teacher", cor: "#fbff00" },
+      { id: "4a", titulo: "Alisson", cor: "#fbff00" },
+      { id: "4b", titulo: "Airton", cor: "#fbff00" },
+      { id: "4c", titulo: "Pedro", cor: "#fbff00" },
+      { id: "4a", titulo: "Rodrigo", cor: "#fbff00" },
+      { id: "4b", titulo: "Castán", cor: "#fbff00" },
+      { id: "4c", titulo: "César Martins", cor: "#fbff00" },
+      { id: "4c", titulo: "Bruno Alves", cor: "#fbff00" },
+      { id: "4a", titulo: "Octávio", cor: "#fbff00" },
+      { id: "4b", titulo: "Ruan", cor: "#fbff00" },
+      { id: "4a", titulo: "Willean Lepo", cor: "#fbff00" },
+      { id: "4c", titulo: "Marcelo Hermes", cor: "#fbff00" },
+      { id: "4a", titulo: "Marcinho", cor: "#fbff00" },
+      { id: "4b", titulo: "Hiago", cor: "#fbff00" },
+      { id: "4c", titulo: "Jean Irmer", cor: "#fbff00" },
+      { id: "4a", titulo: "Thiaguinho", cor: "#fbff00" },
+      { id: "4b", titulo: "Ronald", cor: "#fbff00" },
+      { id: "4c", titulo: "Gui Lobo", cor: "#fbff00" },
+      { id: "4b", titulo: "Eduardo", cor: "#fbff00" },
+      { id: "4c", titulo: "Fellipe Mateus", cor: "#fbff00" },
+      { id: "4a", titulo: "Jhonata Robert", cor: "#fbff00" },
+      { id: "4b", titulo: "Otero", cor: "#fbff00" },
+      { id: "4c", titulo: "Romarinho", cor: "#fbff00" },
+      { id: "4a", titulo: "Waguininho", cor: "#fbff00" },
+      { id: "4b", titulo: "Nicolas", cor: "#fbff00" },
+      { id: "4c", titulo: "João Carlos", cor: "#fbff00" },
+      { id: "4a", titulo: "Diego Gonçalves", cor: "#fbff00" },
+      { id: "4b", titulo: "Cauê Santos", cor: "#fbff00" },
+      { id: "4c", titulo: "Yuri Tanque", cor: "#fbff00" },
     ],
   },
   {
     id: "5",
-    titulo: "Terror",
+    titulo: "Comissão Técnica",
     filmes: [
-      { id: "5a", titulo: "Hereditary", cor: "#fbff00" },
-      { id: "5b", titulo: "Midsommar", cor: "#fbff00" },
-      { id: "5c", titulo: "Get Out", cor: "#fbff00" },
-    ],
-  },
- 
-  {
-    id: "1",
-    titulo: "Em Alta",
-    filmes: [
-      { id: "1a", titulo: "Oppenheimer", cor: "#fbff00" },
-      { id: "1b", titulo: "Duna 2", cor: "#fbff00" },
-      { id: "1c", titulo: "Barbie", cor: "#fbff00" },
-      { id: "1d", titulo: "Poor Things", cor: "#fbff00" },
-      { id: "1e", titulo: "Saltburn", cor: "#fbff00" },
-    ],
-  },
-  {
-    id: "2",
-    titulo: "Ação",
-    filmes: [
-      { id: "2a", titulo: "John Wick 4", cor: "#fbff00" },
-      { id: "2b", titulo: "Missão Impossível", cor: "#fbff00" },
-      { id: "2c", titulo: "Top Gun", cor: "#fbff00" },
-      { id: "2d", titulo: "Mad Max", cor: "#fbff00" },
-    ],
-  },
-  {
-    id: "3",
-    titulo: "Comédia",
-    filmes: [
-      { id: "3a", titulo: "Superbad", cor: "#fbff00" },
-      { id: "3b", titulo: "The Grand Budapest", cor: "#fbff00" },
-      { id: "3c", titulo: "Knives Out", cor: "#fbff00" },
-    ],
-  },
-  {
-    id: "4",
-    titulo: "Documentários",
-    filmes: [
-      { id: "4a", titulo: "Free Solo", cor: "#fbff00" },
-      { id: "4b", titulo: "The Social Dilemma", cor: "#fbff00" },
-      { id: "4c", titulo: "My Octopus Teacher", cor: "#fbff00" },
-    ],
-  },
-  {
-    id: "5",
-    titulo: "Terror",
-    filmes: [
-      { id: "5a", titulo: "Hereditary", cor: "#fbff00" },
-      { id: "5b", titulo: "Midsommar", cor: "#fbff00" },
-      { id: "5c", titulo: "Get Out", cor: "#fbff00" },
+      { id: "5a", titulo: "Eduardo Baptista - Técnico", cor: "#fbff00" },
+      { id: "5c", titulo: "Julio Cesar - Auxiliar Técnico", cor: "#fbff00" },
+      { id: "5c", titulo: "Amauri Barasuol - Auxiliar Técnico", cor: "#fbff00" },
+      { id: "5c", titulo: "Lucas Matheus - Auxiliar Técnico e Analista", cor: "#fbff00" },
+      { id: "5b", titulo: "Thiago Gasparino - Executivo de Futebol", cor: "#fbff00" },
+      
     ],
   },
 ];
@@ -115,10 +106,14 @@ const categorias: Categoria[] = [
 function FilmeCardBase({
   item,
   style,
+  titulo,
+  tituloStyle,
   children,
 }: {
   item: Filme;
   style: object;
+  titulo: string;
+  tituloStyle?: object;
   children: React.ReactNode;
 }) {
   const hoverProgress = useRef(new Animated.Value(0)).current;
@@ -152,6 +147,22 @@ function FilmeCardBase({
           },
         ]}
       >
+        <Image
+          source={
+            item.imagem ??
+            require("../../Fotos Projeto/Logo informacao carvoeira.png")
+          }
+          style={styles.filmeImagem}
+          resizeMode="cover"
+        />
+        <Animated.View
+          style={[
+            styles.tituloOverlay,
+            { opacity: hoverProgress },
+          ]}
+        >
+          <Text style={[styles.filmeTitulo, tituloStyle]}>{titulo}</Text>
+        </Animated.View>
         {children}
       </Animated.View>
     </Pressable>
@@ -160,32 +171,41 @@ function FilmeCardBase({
 
 function FilmeCard({ item }: { item: Filme }) {
   return (
-    <FilmeCardBase item={item} style={[styles.filmeCard, { backgroundColor: item.cor }]}>
-      <Text style={styles.filmeTitulo}>{item.titulo}</Text>
+    <FilmeCardBase
+      item={item}
+      titulo={item.titulo}
+      style={[styles.filmeCard, { backgroundColor: item.cor }]}
+    >
+      <View />
     </FilmeCardBase>
   );
 }
  
 function FilmeCardDestaque({ item }: { item: Filme }) {
   return (
-    <FilmeCardBase item={item} style={[styles.filmeCardDestaque, { backgroundColor: item.cor }]}>
+    <FilmeCardBase
+      item={item}
+      titulo={item.titulo}
+      style={[styles.filmeCardDestaque, { backgroundColor: item.cor }]}
+    >
       <View style={styles.badge}>
         <Text style={styles.badgeTexto}>🔥 Destaque</Text>
       </View>
-      <Text style={styles.filmeTitulo}>{item.titulo}</Text>
     </FilmeCardBase>
   );
 }
  
 function FilmeCardBanner({ item }: { item: Filme }) {
   return (
-    <FilmeCardBase item={item} style={[styles.filmeCardBanner, { backgroundColor: item.cor }]}>
+    <FilmeCardBase
+      item={item}
+      titulo={item.titulo}
+      tituloStyle={styles.filmeTituloCentralizado}
+      style={[styles.filmeCardBanner, { backgroundColor: item.cor }]}
+    >
       <View style={styles.badge}>
         <Text style={styles.badgeTexto}>✨ Novo</Text>
       </View>
-      <Text style={[styles.filmeTitulo, styles.filmeTituloCentralizado]}>
-        {item.titulo}
-      </Text>
     </FilmeCardBase>
   );
 }
@@ -221,7 +241,7 @@ export default function Netflix() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Image
-          source={require("../../assets/images/icon.png")}
+          source={require("../../Fotos Projeto/Logo informacao carvoeira.png")}
           style={styles.logoImagem}
           resizeMode="contain"
           accessibilityLabel="Logo Informação Carvoeira"
@@ -277,6 +297,20 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     borderBottomColor: "#000000",
   },
+  filmeImagem: {
+    ...StyleSheet.absoluteFillObject,
+    width: undefined,
+    height: undefined,
+    borderRadius: 6,
+  },
+  tituloOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, 0.72)",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 8,
+    borderRadius: 6,
+  },
   filmeCardDestaque: {
     width: 120,
     height: 170,
@@ -316,7 +350,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   filmeTitulo: {
-    color: "#000000",
+    color: "#ffffff",
     fontSize: 11,
     fontWeight: "600",
     textAlign: "center",
