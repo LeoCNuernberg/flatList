@@ -1,4 +1,6 @@
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
+import { useRouter } from "expo-router";
+
 import {
   Animated,
   FlatList,
@@ -9,112 +11,316 @@ import {
   View,
   type ImageSourcePropType,
 } from "react-native";
- 
+
 type Filme = {
   id: string;
   titulo: string;
   cor: string;
-  imagem?: ImageSourcePropType;
+  imagem: ImageSourcePropType;
 };
-type Categoria = { id: string; titulo: string; filmes: Filme[] };
- 
+
+type Categoria = {
+  id: string;
+  titulo: string;
+  filmes: Filme[];
+};
+
 const categorias: Categoria[] = [
   {
     id: "1",
-    titulo: "Títulos",
+    titulo: "Populares na Netflix",
     filmes: [
       {
         id: "1a",
-        titulo: "1 Copa do Brasil",
-        cor: "#fbff00",
-        imagem: require("../../CopaDoBrasil.jfif"),
+        titulo: "Stranger Things",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg",
+        },
       },
-      { id: "1b", titulo: "1 Série B", cor: "#fbff00" },
-      { id: "1c", titulo: "1 Série C", cor: "#fbff00" },
-      { id: "1d", titulo: "12 Campeonatos Catarinense", cor: "#fbff00" },
-      { id: "1e", titulo: "2 Recopas Catarinense", cor: "#fbff00" },
+      {
+        id: "1b",
+        titulo: "Round 6",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg",
+        },
+      },
+      {
+        id: "1c",
+        titulo: "La Casa de Papel",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg",
+        },
+      },
+      {
+        id: "1d",
+        titulo: "Wandinha",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/9PFonBhy4cQy7Jz20NpMygczOkv.jpg",
+        },
+      },
+      {
+        id: "1e",
+        titulo: "Dark",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/apbrbWs8M9lyOpJYU5WXrpFbk1Z.jpg",
+        },
+      },
     ],
   },
+
+  
+
   {
     id: "2",
-    titulo: "Próximos Jogos",
+    titulo: "Filmes de Ação",
     filmes: [
-      { id: "2a", titulo: "Criciúma x Fortaleza", cor: "#fbff00" },
-      { id: "2b", titulo: "CRB X Criciúma", cor: "#fbff00" },
-      { id: "2c", titulo: "Criciúma x Cuiabá", cor: "#fbff00" },
-      { id: "2d", titulo: "Criciúma x Juventude", cor: "#fbff00" },
-      { id: "2e", titulo: "Criciúma x Operário", cor: "#fbff00" },
+      {
+        id: "2a",
+        titulo: "Resgate",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/nygOUcBKPHFTbxsYRFZVePqgPK6.jpg",
+        },
+      },
+      {
+        id: "2b",
+        titulo: "Alerta Vermelho",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/lAXONuqg41NwUMuzMiFvicDET9Y.jpg",
+        },
+      },
+      {
+        id: "2c",
+        titulo: "O Projeto Adam",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/11MJy6lkt7yTEIowEPIkaK4B7lM.jpg",
+        },
+      },
+      {
+        id: "2d",
+        titulo: "Agente Oculto",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/1f10KUKW7KyNt8bF8NHmwbBQ9fs.jpg",
+        },
+      },
+      {
+        id: "2e",
+        titulo: "Esquadrão 6",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/8cXbitsS6dWQ5gfMTZdorpAAzEH.jpg",
+        },
+      },
     ],
   },
+
   {
     id: "3",
-    titulo: "Idolos",
+    titulo: "Séries para Maratonar",
     filmes: [
-      { id: "3a", titulo: "Jairo Lenzi", cor: "#fbff00" },
-      { id: "3b", titulo: "Grizzo", cor: "#fbff00" },
-      { id: "3c", titulo: "Itá", cor: "#fbff00" },
+      {
+        id: "3a",
+        titulo: "Breaking Bad",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg",
+        },
+      },
+      {
+        id: "3b",
+        titulo: "Peaky Blinders",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/vUUqzWa2LnHIVqkaKVlVGkVcZIW.jpg",
+        },
+      },
+      {
+        id: "3c",
+        titulo: "The Witcher",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/cZ0d3rtvXPVvuiX22sP79K3Hmjz.jpg",
+        },
+      },
+      {
+        id: "3d",
+        titulo: "Lucifer",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/ekZobS8isE6mA53RAiGDG93hBxL.jpg",
+        },
+      },
+      {
+        id: "3e",
+        titulo: "Cobra Kai",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/6POBWybSBDBKjSs1VAQcnQC1qyt.jpg",
+        },
+      },
     ],
   },
+
   {
     id: "4",
-    titulo: "Jogadores atuais",
+    titulo: "Comédia",
     filmes: [
-      { id: "4a", titulo: "Alisson", cor: "#fbff00" },
-      { id: "4b", titulo: "Airton", cor: "#fbff00" },
-      { id: "4c", titulo: "Pedro", cor: "#fbff00" },
-      { id: "4a", titulo: "Rodrigo", cor: "#fbff00" },
-      { id: "4b", titulo: "Castán", cor: "#fbff00" },
-      { id: "4c", titulo: "César Martins", cor: "#fbff00" },
-      { id: "4c", titulo: "Bruno Alves", cor: "#fbff00" },
-      { id: "4a", titulo: "Octávio", cor: "#fbff00" },
-      { id: "4b", titulo: "Ruan", cor: "#fbff00" },
-      { id: "4a", titulo: "Willean Lepo", cor: "#fbff00" },
-      { id: "4c", titulo: "Marcelo Hermes", cor: "#fbff00" },
-      { id: "4a", titulo: "Marcinho", cor: "#fbff00" },
-      { id: "4b", titulo: "Hiago", cor: "#fbff00" },
-      { id: "4c", titulo: "Jean Irmer", cor: "#fbff00" },
-      { id: "4a", titulo: "Thiaguinho", cor: "#fbff00" },
-      { id: "4b", titulo: "Ronald", cor: "#fbff00" },
-      { id: "4c", titulo: "Gui Lobo", cor: "#fbff00" },
-      { id: "4b", titulo: "Eduardo", cor: "#fbff00" },
-      { id: "4c", titulo: "Fellipe Mateus", cor: "#fbff00" },
-      { id: "4a", titulo: "Jhonata Robert", cor: "#fbff00" },
-      { id: "4b", titulo: "Otero", cor: "#fbff00" },
-      { id: "4c", titulo: "Romarinho", cor: "#fbff00" },
-      { id: "4a", titulo: "Waguininho", cor: "#fbff00" },
-      { id: "4b", titulo: "Nicolas", cor: "#fbff00" },
-      { id: "4c", titulo: "João Carlos", cor: "#fbff00" },
-      { id: "4a", titulo: "Diego Gonçalves", cor: "#fbff00" },
-      { id: "4b", titulo: "Cauê Santos", cor: "#fbff00" },
-      { id: "4c", titulo: "Yuri Tanque", cor: "#fbff00" },
+      {
+        id: "4a",
+        titulo: "Mistério no Mediterrâneo",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/5G9QHrLg16qF6K9CHLmP4tL8vXw.jpg",
+        },
+      },
+      {
+        id: "4b",
+        titulo: "Não Olhe para Cima",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/6Sc7Tjt7aPsdghYK32mDMFeZkqJ.jpg",
+        },
+      },
+      {
+        id: "4c",
+        titulo: "Mistério em Paris",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/5x1R4gvsYyd6lyoUcT4vNkqzYV6.jpg",
+        },
+      },
+      {
+        id: "4d",
+        titulo: "Family Switch",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/fnRUCA0fjEb3kuIaTGogL7425IC.jpg",
+        },
+      },
+      {
+        id: "4e",
+        titulo: "Certas Pessoas",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/x5E4TndwASNkaK2hwgeYfsIVo2x.jpg",
+        },
+      },
     ],
   },
+
   {
     id: "5",
-    titulo: "Comissão Técnica",
+    titulo: "Suspense e Terror",
     filmes: [
-      { id: "5a", titulo: "Eduardo Baptista - Técnico", cor: "#fbff00" },
-      { id: "5c", titulo: "Julio Cesar - Auxiliar Técnico", cor: "#fbff00" },
-      { id: "5c", titulo: "Amauri Barasuol - Auxiliar Técnico", cor: "#fbff00" },
-      { id: "5c", titulo: "Lucas Matheus - Auxiliar Técnico e Analista", cor: "#fbff00" },
-      { id: "5b", titulo: "Thiago Gasparino - Executivo de Futebol", cor: "#fbff00" },
-      
+      {
+        id: "5a",
+        titulo: "Bird Box",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/rGfGfgL2pEPCfhIvqHXieXFn7gp.jpg",
+        },
+      },
+      {
+        id: "5b",
+        titulo: "Rua do Medo",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/9J9Wy39ZjrVmfk7yMkulpcI5sy0.jpg",
+        },
+      },
+      {
+        id: "5c",
+        titulo: "O Telefone do Sr. Harrigan",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/rX42wwlcowm5kGEMs7P5lq2b0Kp.jpg",
+        },
+      },
+      {
+        id: "5d",
+        titulo: "Jogo Perigoso",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/32dippiypDdaKv7XFEfUlQ7kPup.jpg",
+        },
+      },
+      {
+        id: "5e",
+        titulo: "O Poço",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/8ZX18L5m6rH5viSYpRnTSbb9eXh.jpg",
+        },
+      },
+    ],
+  },
+
+  {
+    id: "6",
+    titulo: "Minha Lista",
+    filmes: [
+      {
+        id: "6a",
+        titulo: "Stranger Things",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg",
+        },
+      },
+      {
+        id: "6b",
+        titulo: "Breaking Bad",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg",
+        },
+      },
+      {
+        id: "6c",
+        titulo: "Dark",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/apbrbWs8M9lyOpJYU5WXrpFbk1Z.jpg",
+        },
+      },
+      {
+        id: "6d",
+        titulo: "Peaky Blinders",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/vUUqzWa2LnHIVqkaKVlVGkVcZIW.jpg",
+        },
+      },
+      {
+        id: "6e",
+        titulo: "Wandinha",
+        cor: "#E50914",
+        imagem: {
+          uri: "https://image.tmdb.org/t/p/w500/9PFonBhy4cQy7Jz20NpMygczOkv.jpg",
+        },
+      },
     ],
   },
 ];
- 
+
 function FilmeCardBase({
   item,
   style,
   titulo,
-  tituloStyle,
   children,
 }: {
   item: Filme;
   style: object;
   titulo: string;
-  tituloStyle?: object;
-  children: React.ReactNode;
+  children?: ReactNode;
 }) {
   const hoverProgress = useRef(new Animated.Value(0)).current;
 
@@ -140,7 +346,7 @@ function FilmeCardBase({
               {
                 scale: hoverProgress.interpolate({
                   inputRange: [0, 1],
-                  outputRange: [1, 1.06],
+                  outputRange: [1, 1.07],
                 }),
               },
             ],
@@ -148,21 +354,28 @@ function FilmeCardBase({
         ]}
       >
         <Image
-          source={
-            item.imagem ??
-            require("../../Fotos Projeto/Logo informacao carvoeira.png")
-          }
+          source={item.imagem}
           style={styles.filmeImagem}
           resizeMode="cover"
         />
+
         <Animated.View
           style={[
             styles.tituloOverlay,
-            { opacity: hoverProgress },
+            {
+              opacity: hoverProgress,
+            },
           ]}
         >
-          <Text style={[styles.filmeTitulo, tituloStyle]}>{titulo}</Text>
+          <Text style={styles.filmeTitulo}>
+            {titulo}
+          </Text>
+
+          <View style={styles.playButton}>
+            <Text style={styles.playIcon}>▶</Text>
+          </View>
         </Animated.View>
+
         {children}
       </Animated.View>
     </Pressable>
@@ -174,187 +387,314 @@ function FilmeCard({ item }: { item: Filme }) {
     <FilmeCardBase
       item={item}
       titulo={item.titulo}
-      style={[styles.filmeCard, { backgroundColor: item.cor }]}
-    >
-      <View />
-    </FilmeCardBase>
+      style={[
+        styles.filmeCard,
+        {
+          backgroundColor: item.cor,
+        },
+      ]}
+    />
   );
 }
- 
+
 function FilmeCardDestaque({ item }: { item: Filme }) {
   return (
     <FilmeCardBase
       item={item}
       titulo={item.titulo}
-      style={[styles.filmeCardDestaque, { backgroundColor: item.cor }]}
+      style={[
+        styles.filmeCard,
+        {
+          backgroundColor: item.cor,
+        },
+      ]}
     >
       <View style={styles.badge}>
-        <Text style={styles.badgeTexto}>🔥 Destaque</Text>
+        <Text style={styles.badgeTexto}>
+          TOP 10
+        </Text>
       </View>
     </FilmeCardBase>
   );
 }
- 
-function FilmeCardBanner({ item }: { item: Filme }) {
+
+function FilmeCardNovo({ item }: { item: Filme }) {
   return (
     <FilmeCardBase
       item={item}
       titulo={item.titulo}
-      tituloStyle={styles.filmeTituloCentralizado}
-      style={[styles.filmeCardBanner, { backgroundColor: item.cor }]}
+      style={[
+        styles.filmeCard,
+        {
+          backgroundColor: item.cor,
+        },
+      ]}
     >
-      <View style={styles.badge}>
-        <Text style={styles.badgeTexto}>✨ Novo</Text>
+      <View style={styles.badgeNovo}>
+        <Text style={styles.badgeTexto}>
+          NOVO
+        </Text>
       </View>
     </FilmeCardBase>
   );
 }
- 
-function renderFilmeCard(item: Filme) {
-  switch (item.cor) {
-    case "red":
-      return <FilmeCardDestaque item={item} />;
-    case "green":
-      return <FilmeCardBanner item={item} />;
-    default:
-      return <FilmeCard item={item} />;
+
+function renderFilmeCard(item: Filme, index: number) {
+  if (index === 0) {
+    return <FilmeCardDestaque item={item} />;
   }
+
+  if (index === 1) {
+    return <FilmeCardNovo item={item} />;
+  }
+
+  return <FilmeCard item={item} />;
 }
- 
+
 function CategoriaRow({ item }: { item: Categoria }) {
   return (
     <View style={styles.categoriaContainer}>
-      <Text style={styles.categoriaTitulo}>{item.titulo}</Text>
+      <Text style={styles.categoriaTitulo}>
+        {item.titulo}
+      </Text>
+
       <FlatList
         data={item.filmes}
         keyExtractor={(filme) => filme.id}
-        renderItem={({ item: filme }) => renderFilmeCard(filme)}
-        horizontal={true}
+        renderItem={({ item: filme, index }) =>
+          renderFilmeCard(filme, index)
+        }
+        horizontal
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.listaHorizontal}
       />
     </View>
   );
 }
- 
+
 export default function Netflix() {
   return (
     <View style={styles.container}>
+
       <View style={styles.header}>
+
         <Image
-          source={require("../../Fotos Projeto/Logo informacao carvoeira.png")}
-          style={styles.logoImagem}
+          source={require("../../Fotos Projeto/netflix-logo.png")}
+          style={styles.netflixLogo}
           resizeMode="contain"
-          accessibilityLabel="Logo Informação Carvoeira"
         />
+
+        <View style={styles.menu}>
+
+          <Text style={styles.menuAtivo}>
+            Início
+          </Text>
+
+          <Text style={styles.menuItem}>
+            Séries
+          </Text>
+
+          <Text style={styles.menuItem}>
+            Filmes
+          </Text>
+
+          <Text style={styles.menuItem}>
+            Minha lista
+          </Text>
+
+        </View>
+
       </View>
+
       <FlatList
         data={categorias}
-        keyExtractor={(cat) => cat.id}
-        renderItem={({ item }) => <CategoriaRow item={item} />}
+        keyExtractor={(categoria) => categoria.id}
+        renderItem={({ item }) => (
+          <CategoriaRow item={item} />
+        )}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 80 }}
+        contentContainerStyle={styles.conteudo}
       />
+
     </View>
   );
 }
- 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#141414",
   },
+
   header: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  logoImagem: {
-    width: 180,
-    height: 56,
-  },
-  categoriaContainer: {
-    marginBottom: 24,
-    paddingLeft: 12,
-  },
-  categoriaTitulo: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-    borderLeftWidth: 3,
-    borderLeftColor: "#000000",
-    paddingLeft: 8,
-    marginBottom: 10,
-  },
-  filmePressable: {
-    marginRight: 10,
-  },
-  filmeCard: {
-    width: 120,
-    height: 170,
-    borderRadius: 6,
-    justifyContent: "center",
+    paddingHorizontal: 24,
+    paddingVertical: 18,
+
+    flexDirection: "row",
     alignItems: "center",
-    padding: 8,
-    borderBottomWidth: 3,
-    borderBottomColor: "#000000",
+
+    backgroundColor: "#141414",
   },
-  filmeImagem: {
-    ...StyleSheet.absoluteFillObject,
-    width: undefined,
-    height: undefined,
-    borderRadius: 6,
+
+  netflixLogo: {
+    width: 150,
+    height: 50,
+
+    marginRight: 35,
   },
-  tituloOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, 0.72)",
-    justifyContent: "center",
+
+  menu: {
+    flexDirection: "row",
     alignItems: "center",
-    padding: 8,
-    borderRadius: 6,
+
+    gap: 22,
   },
-  filmeCardDestaque: {
-    width: 120,
-    height: 170,
-    borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 8,
-    borderBottomWidth: 3,
-    borderBottomColor: "#000000",
-  },
-  filmeCardBanner: {
-    width: 200,
-    height: 100,
-    borderRadius: 10,
-    marginRight: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 8,
-    borderBottomWidth: 3,
-    borderBottomColor: "#000000",
-  },
-  badge: {
-    position: "absolute",
-    top: 8,
-    right: 8,
-    backgroundColor: "rgba(0,0,0,0.6)",
-    borderRadius: 4,
-    paddingHorizontal: 4,
-    paddingVertical: 2,
-  },
-  badgeTexto: {
-    color: "#fff",
-    fontSize: 9,
+
+  menuAtivo: {
+    color: "#ffffff",
+
+    fontSize: 14,
     fontWeight: "700",
   },
-  filmeTituloCentralizado: {
-    textAlign: "center",
+
+  menuItem: {
+    color: "#b3b3b3",
+
+    fontSize: 14,
+    fontWeight: "500",
   },
+
+  conteudo: {
+    paddingTop: 12,
+    paddingBottom: 80,
+  },
+
+  categoriaContainer: {
+    marginBottom: 32,
+    paddingLeft: 20,
+  },
+
+  categoriaTitulo: {
+    color: "#ffffff",
+
+    fontSize: 20,
+    fontWeight: "700",
+
+    marginBottom: 12,
+  },
+
+  listaHorizontal: {
+    paddingRight: 20,
+  },
+
+  filmePressable: {
+    marginRight: 12,
+  },
+
+  filmeCard: {
+    width: 140,
+    height: 200,
+
+    borderRadius: 6,
+
+    overflow: "hidden",
+
+    backgroundColor: "#222222",
+
+    shadowColor: "#000",
+
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
+
+    elevation: 5,
+  },
+
+  filmeImagem: {
+    ...StyleSheet.absoluteFillObject,
+
+    width: undefined,
+    height: undefined,
+  },
+
+  tituloOverlay: {
+    ...StyleSheet.absoluteFillObject,
+
+    backgroundColor: "rgba(0, 0, 0, 0.72)",
+
+    justifyContent: "center",
+    alignItems: "center",
+
+    padding: 10,
+  },
+
   filmeTitulo: {
     color: "#ffffff",
-    fontSize: 11,
-    fontWeight: "600",
+
+    fontSize: 14,
+    fontWeight: "700",
+
     textAlign: "center",
+
+    marginBottom: 12,
+  },
+
+  playButton: {
+    width: 35,
+    height: 35,
+
+    borderRadius: 20,
+
+    backgroundColor: "#ffffff",
+
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  playIcon: {
+    color: "#000000",
+
+    fontSize: 15,
+
+    marginLeft: 2,
+  },
+
+  badge: {
+    position: "absolute",
+
+    top: 8,
+    right: 8,
+
+    backgroundColor: "#E50914",
+
+    borderRadius: 3,
+
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+  },
+
+  badgeNovo: {
+    position: "absolute",
+
+    top: 8,
+    right: 8,
+
+    backgroundColor: "#E50914",
+
+    borderRadius: 3,
+
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+  },
+
+  badgeTexto: {
+    color: "#ffffff",
+
+    fontSize: 9,
+    fontWeight: "900",
   },
 });
- 
- 
