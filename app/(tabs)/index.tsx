@@ -1,10 +1,11 @@
-import { useRef, type ReactNode } from "react";
-import { useRouter } from "expo-router";
+import { useRef, useState, type ReactNode } from "react";
+import categorias from "../components/DadosDosFilmes";
 
 import {
   Animated,
   FlatList,
   Image,
+  Modal,
   Pressable,
   StyleSheet,
   Text,
@@ -25,302 +26,19 @@ type Categoria = {
   filmes: Filme[];
 };
 
-const categorias: Categoria[] = [
-  {
-    id: "1",
-    titulo: "Populares na Netflix",
-    filmes: [
-      {
-        id: "1a",
-        titulo: "Stranger Things",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg",
-        },
-      },
-      {
-        id: "1b",
-        titulo: "Round 6",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg",
-        },
-      },
-      {
-        id: "1c",
-        titulo: "La Casa de Papel",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg",
-        },
-      },
-      {
-        id: "1d",
-        titulo: "Wandinha",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/9PFonBhy4cQy7Jz20NpMygczOkv.jpg",
-        },
-      },
-      {
-        id: "1e",
-        titulo: "Dark",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/apbrbWs8M9lyOpJYU5WXrpFbk1Z.jpg",
-        },
-      },
-    ],
-  },
-
-  
-
-  {
-    id: "2",
-    titulo: "Filmes de Ação",
-    filmes: [
-      {
-        id: "2a",
-        titulo: "Resgate",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/nygOUcBKPHFTbxsYRFZVePqgPK6.jpg",
-        },
-      },
-      {
-        id: "2b",
-        titulo: "Alerta Vermelho",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/lAXONuqg41NwUMuzMiFvicDET9Y.jpg",
-        },
-      },
-      {
-        id: "2c",
-        titulo: "O Projeto Adam",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/11MJy6lkt7yTEIowEPIkaK4B7lM.jpg",
-        },
-      },
-      {
-        id: "2d",
-        titulo: "Agente Oculto",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/1f10KUKW7KyNt8bF8NHmwbBQ9fs.jpg",
-        },
-      },
-      {
-        id: "2e",
-        titulo: "Esquadrão 6",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/8cXbitsS6dWQ5gfMTZdorpAAzEH.jpg",
-        },
-      },
-    ],
-  },
-
-  {
-    id: "3",
-    titulo: "Séries para Maratonar",
-    filmes: [
-      {
-        id: "3a",
-        titulo: "Breaking Bad",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg",
-        },
-      },
-      {
-        id: "3b",
-        titulo: "Peaky Blinders",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/vUUqzWa2LnHIVqkaKVlVGkVcZIW.jpg",
-        },
-      },
-      {
-        id: "3c",
-        titulo: "The Witcher",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/cZ0d3rtvXPVvuiX22sP79K3Hmjz.jpg",
-        },
-      },
-      {
-        id: "3d",
-        titulo: "Lucifer",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/ekZobS8isE6mA53RAiGDG93hBxL.jpg",
-        },
-      },
-      {
-        id: "3e",
-        titulo: "Cobra Kai",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/6POBWybSBDBKjSs1VAQcnQC1qyt.jpg",
-        },
-      },
-    ],
-  },
-
-  {
-    id: "4",
-    titulo: "Comédia",
-    filmes: [
-      {
-        id: "4a",
-        titulo: "Mistério no Mediterrâneo",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/5G9QHrLg16qF6K9CHLmP4tL8vXw.jpg",
-        },
-      },
-      {
-        id: "4b",
-        titulo: "Não Olhe para Cima",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/6Sc7Tjt7aPsdghYK32mDMFeZkqJ.jpg",
-        },
-      },
-      {
-        id: "4c",
-        titulo: "Mistério em Paris",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/5x1R4gvsYyd6lyoUcT4vNkqzYV6.jpg",
-        },
-      },
-      {
-        id: "4d",
-        titulo: "Family Switch",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/fnRUCA0fjEb3kuIaTGogL7425IC.jpg",
-        },
-      },
-      {
-        id: "4e",
-        titulo: "Certas Pessoas",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/x5E4TndwASNkaK2hwgeYfsIVo2x.jpg",
-        },
-      },
-    ],
-  },
-
-  {
-    id: "5",
-    titulo: "Suspense e Terror",
-    filmes: [
-      {
-        id: "5a",
-        titulo: "Bird Box",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/rGfGfgL2pEPCfhIvqHXieXFn7gp.jpg",
-        },
-      },
-      {
-        id: "5b",
-        titulo: "Rua do Medo",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/9J9Wy39ZjrVmfk7yMkulpcI5sy0.jpg",
-        },
-      },
-      {
-        id: "5c",
-        titulo: "O Telefone do Sr. Harrigan",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/rX42wwlcowm5kGEMs7P5lq2b0Kp.jpg",
-        },
-      },
-      {
-        id: "5d",
-        titulo: "Jogo Perigoso",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/32dippiypDdaKv7XFEfUlQ7kPup.jpg",
-        },
-      },
-      {
-        id: "5e",
-        titulo: "O Poço",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/8ZX18L5m6rH5viSYpRnTSbb9eXh.jpg",
-        },
-      },
-    ],
-  },
-
-  {
-    id: "6",
-    titulo: "Minha Lista",
-    filmes: [
-      {
-        id: "6a",
-        titulo: "Stranger Things",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg",
-        },
-      },
-      {
-        id: "6b",
-        titulo: "Breaking Bad",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg",
-        },
-      },
-      {
-        id: "6c",
-        titulo: "Dark",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/apbrbWs8M9lyOpJYU5WXrpFbk1Z.jpg",
-        },
-      },
-      {
-        id: "6d",
-        titulo: "Peaky Blinders",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/vUUqzWa2LnHIVqkaKVlVGkVcZIW.jpg",
-        },
-      },
-      {
-        id: "6e",
-        titulo: "Wandinha",
-        cor: "#E50914",
-        imagem: {
-          uri: "https://image.tmdb.org/t/p/w500/9PFonBhy4cQy7Jz20NpMygczOkv.jpg",
-        },
-      },
-    ],
-  },
-];
 
 function FilmeCardBase({
   item,
   style,
   titulo,
   children,
+  onPress,
 }: {
   item: Filme;
   style: object;
   titulo: string;
   children?: ReactNode;
+  onPress: () => void;
 }) {
   const hoverProgress = useRef(new Animated.Value(0)).current;
 
@@ -336,6 +54,7 @@ function FilmeCardBase({
     <Pressable
       onHoverIn={() => animateHover(1)}
       onHoverOut={() => animateHover(0)}
+      onPress={onPress}
       style={styles.filmePressable}
     >
       <Animated.View
@@ -382,11 +101,12 @@ function FilmeCardBase({
   );
 }
 
-function FilmeCard({ item }: { item: Filme }) {
+function FilmeCard({ item, onPress }: { item: Filme; onPress: () => void }) {
   return (
     <FilmeCardBase
       item={item}
       titulo={item.titulo}
+      onPress={onPress}
       style={[
         styles.filmeCard,
         {
@@ -397,11 +117,12 @@ function FilmeCard({ item }: { item: Filme }) {
   );
 }
 
-function FilmeCardDestaque({ item }: { item: Filme }) {
+function FilmeCardDestaque({ item, onPress }: { item: Filme; onPress: () => void }) {
   return (
     <FilmeCardBase
       item={item}
       titulo={item.titulo}
+      onPress={onPress}
       style={[
         styles.filmeCard,
         {
@@ -418,11 +139,12 @@ function FilmeCardDestaque({ item }: { item: Filme }) {
   );
 }
 
-function FilmeCardNovo({ item }: { item: Filme }) {
+function FilmeCardNovo({ item, onPress }: { item: Filme; onPress: () => void }) {
   return (
     <FilmeCardBase
       item={item}
       titulo={item.titulo}
+      onPress={onPress}
       style={[
         styles.filmeCard,
         {
@@ -439,19 +161,29 @@ function FilmeCardNovo({ item }: { item: Filme }) {
   );
 }
 
-function renderFilmeCard(item: Filme, index: number) {
+function renderFilmeCard(
+  item: Filme,
+  index: number,
+  onPress: (filme: Filme) => void
+) {
   if (index === 0) {
-    return <FilmeCardDestaque item={item} />;
+    return <FilmeCardDestaque item={item} onPress={() => onPress(item)} />;
   }
 
   if (index === 1) {
-    return <FilmeCardNovo item={item} />;
+    return <FilmeCardNovo item={item} onPress={() => onPress(item)} />;
   }
 
-  return <FilmeCard item={item} />;
+  return <FilmeCard item={item} onPress={() => onPress(item)} />;
 }
 
-function CategoriaRow({ item }: { item: Categoria }) {
+function CategoriaRow({
+  item,
+  onFilmePress,
+}: {
+  item: Categoria;
+  onFilmePress: (filme: Filme) => void;
+}) {
   return (
     <View style={styles.categoriaContainer}>
       <Text style={styles.categoriaTitulo}>
@@ -462,7 +194,7 @@ function CategoriaRow({ item }: { item: Categoria }) {
         data={item.filmes}
         keyExtractor={(filme) => filme.id}
         renderItem={({ item: filme, index }) =>
-          renderFilmeCard(filme, index)
+          renderFilmeCard(filme, index, onFilmePress)
         }
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -473,11 +205,11 @@ function CategoriaRow({ item }: { item: Categoria }) {
 }
 
 export default function Netflix() {
+  const [filmeSelecionado, setFilmeSelecionado] = useState<Filme | null>(null);
+
   return (
     <View style={styles.container}>
-
       <View style={styles.header}>
-
         <Image
           source={require("../../Fotos Projeto/netflix-logo.png")}
           style={styles.netflixLogo}
@@ -485,37 +217,75 @@ export default function Netflix() {
         />
 
         <View style={styles.menu}>
-
-          <Text style={styles.menuAtivo}>
-            Início
-          </Text>
-
-          <Text style={styles.menuItem}>
-            Séries
-          </Text>
-
-          <Text style={styles.menuItem}>
-            Filmes
-          </Text>
-
-          <Text style={styles.menuItem}>
-            Minha lista
-          </Text>
-
+          <Text style={styles.menuAtivo}>Início</Text>
+          <Text style={styles.menuItem}>Séries</Text>
+          <Text style={styles.menuItem}>Filmes</Text>
+          <Text style={styles.menuItem}>Minha lista</Text>
         </View>
-
       </View>
 
       <FlatList
         data={categorias}
         keyExtractor={(categoria) => categoria.id}
         renderItem={({ item }) => (
-          <CategoriaRow item={item} />
+          <CategoriaRow
+            item={item}
+            onFilmePress={setFilmeSelecionado}
+          />
         )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.conteudo}
       />
 
+      <Modal
+        visible={filmeSelecionado !== null}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setFilmeSelecionado(null)}
+      >
+        <Pressable
+          style={styles.modalFundo}
+          onPress={() => setFilmeSelecionado(null)}
+        >
+          <Pressable
+            style={styles.modalCard}
+            onPress={(event) => event.stopPropagation()}
+          >
+            <Pressable
+              style={styles.fecharButton}
+              onPress={() => setFilmeSelecionado(null)}
+            >
+              <Text style={styles.fecharTexto}>✕</Text>
+            </Pressable>
+
+            {filmeSelecionado && (
+              <>
+                <Image
+                  source={filmeSelecionado.imagem}
+                  style={styles.modalImagem}
+                  resizeMode="cover"
+                />
+
+                <View style={styles.modalInfo}>
+                  <Text style={styles.modalTitulo}>
+                    {filmeSelecionado.titulo}
+                  </Text>
+
+                  <View style={styles.modalMeta}>
+                    <Text style={styles.modalRelevancia}>98% relevante</Text>
+                    <Text style={styles.modalAno}>2026</Text>
+                    <Text style={styles.modalClassificacao}>16</Text>
+                  </View>
+                  <Pressable style={styles.assistirButton}>
+                    <Text style={styles.assistirIcon}>▶</Text>
+                    <Text style={styles.assistirTexto}>Assistir</Text>
+                  </Pressable>
+                </View>
+              </>
+            )}
+          </Pressable>
+        </Pressable>
+      </Modal>
     </View>
   );
 }
@@ -697,4 +467,118 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontWeight: "900",
   },
+
+  modalFundo: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.82)",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 24,
+  },
+
+  modalCard: {
+    width: "90%",
+    maxWidth: 900,
+    minHeight: 460,
+    backgroundColor: "#181818",
+    borderRadius: 10,
+    overflow: "hidden",
+    flexDirection: "row",
+    position: "relative",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.6,
+    shadowRadius: 20,
+    elevation: 20,
+  },
+
+  modalImagem: {
+    width: "42%",
+    minHeight: 460,
+  },
+
+  modalInfo: {
+    flex: 1,
+    paddingHorizontal: 32,
+    paddingVertical: 52,
+    justifyContent: "center",
+  },
+
+  modalTitulo: {
+    color: "#ffffff",
+    fontSize: 32,
+    fontWeight: "900",
+    marginBottom: 14,
+  },
+
+  modalMeta: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    marginBottom: 28,
+  },
+
+  modalRelevancia: {
+    color: "#46d369",
+    fontSize: 14,
+    fontWeight: "700",
+  },
+
+  modalAno: {
+    color: "#d2d2d2",
+    fontSize: 14,
+  },
+
+  modalClassificacao: {
+    color: "#ffffff",
+    fontSize: 12,
+    borderWidth: 1,
+    borderColor: "#777777",
+    paddingHorizontal: 5,
+    paddingVertical: 2,
+  },
+assistirButton: {
+    alignSelf: "flex-start",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#ffffff",
+    borderRadius: 5,
+    paddingHorizontal: 20,
+    paddingVertical: 11,
+    gap: 9,
+  },
+
+  assistirIcon: {
+    color: "#000000",
+    fontSize: 16,
+  },
+
+  assistirTexto: {
+    color: "#000000",
+    fontSize: 16,
+    fontWeight: "800",
+  },
+
+  fecharButton: {
+    position: "absolute",
+    top: 14,
+    right: 14,
+    width: 38,
+    height: 38,
+    borderRadius: 20,
+    backgroundColor: "rgba(0, 0, 0, 0.78)",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 20,
+  },
+
+  fecharTexto: {
+    color: "#ffffff",
+    fontSize: 18,
+    fontWeight: "700",
+  },
+
 });
